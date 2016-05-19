@@ -2,20 +2,30 @@ import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 import connect from 'ember-redux/components/connect';
 
-var stateToComputed = (state) => {
-  return {
-    low: state.low,
-    high: state.high,
-    name: state.name
-  };
+let reduxState = (statePath) => {
+  return Ember.computed('_reduxState', {
+    get(prop) {
+      let p = statePath || prop;
+      let redux = this.get('redux');
+      return Ember.get(redux.getState(), p);
+    }
+  });
 };
 
-var dispatchToActions = (dispatch) => {
-  return {
+//var stateToComputed = (state) => {
+  //return {
+    //low: state.low,
+    //high: state.high,
+    //name: state.name
+  //};
+//};
+
+//var dispatchToActions = (dispatch) => {
+  //return {
     //up: () => dispatch({type: 'UP'}),
     //down: () => dispatch({type: 'DOWN'})
-  };
-};
+  //};
+//};
 
 var CountListComponent = Ember.Component.extend({
   layout: hbs`
@@ -28,6 +38,11 @@ var CountListComponent = Ember.Component.extend({
     <button class="btn-alter" onclick={{action "alter"}}>alter</button>
     <span class="random-state">{{color}}</span>
   `,
+
+  low: reduxState(),
+  high: reduxState('high'),
+  name: reduxState('name'),
+
   actions: {
     alter() {
         this.set('low', '999');
@@ -39,4 +54,4 @@ var CountListComponent = Ember.Component.extend({
   }
 });
 
-export default connect(stateToComputed, dispatchToActions)(CountListComponent);
+export default connect(/*stateToComputed, dispatchToActions*/)(CountListComponent);

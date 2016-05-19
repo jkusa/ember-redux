@@ -37,8 +37,9 @@ var connect = function(mapStateToComputed, mapDispatchToActions) {
                 dispatch.forEach(function(action) {
                     component['actions'][action] = finalMapDispatchToActions(redux.dispatch.bind(redux))[action];
                 });
-                if (shouldSubscribe && !this.unsubscribe) {
+                if (/*shouldSubscribe &&*/ !this.unsubscribe) {
                     this.unsubscribe = redux.subscribe(() => {
+                        this.set('_reduxState', redux.getState());
                         props.forEach(function(name) {
                             component.notifyPropertyChange(name);
                         });

@@ -7,6 +7,7 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('counts', { path: '/' });
+  this.route('counts-helpers', { path: '/counts-helpers'});
   this.route('dashboard', { path: '/dashboard' });
   this.route('empty', { path: '/empty' });
   this.route('users', function() {

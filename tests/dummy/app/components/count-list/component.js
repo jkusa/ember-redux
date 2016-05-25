@@ -32,7 +32,7 @@ var CountListComponent = Ember.Component.extend({
     <span class="parent-state">{{low}}</span>
     <button class="btn-up" onclick={{dispatch "UP"}}>up</button>
     {{count-detail high=high down=(dispatch "DOWN")}}
-    <span class="name">{{name}}</span>
+    <span class="name">{{get-state 'name'}}</span>
     <button class="btn-name" onclick={{dispatch "UPDATE_NAME" value='usa'}}>update name</button>
     <button class="btn-random" onclick={{action "random"}}>random</button>
     <button class="btn-alter" onclick={{action "alter"}}>alter</button>
